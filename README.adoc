@@ -12,4 +12,5 @@ If you think that you should have access to this, feel free to follow the next s
 . Open a link:https://issues.jenkins-ci.org/projects/INFRA[Jira ticket] and explain why you should have access to evergreen infrastructure
 . Add your ssh public key to 'config/authorized_keys/<your_username>'
 . Add your user in Dockerfile.evergreen 
+. Run `make build.evergreen` to validate
 . Open a PR and ask for two reviewers
