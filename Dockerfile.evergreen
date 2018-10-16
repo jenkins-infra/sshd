@@ -16,7 +16,7 @@ RUN useradd -m -d /home/olblak -g 1000 -u 1000 -s /bin/bash olblak
 COPY --chown=olblak:olblak config/authorized_keys/olblak /home/olblak/.ssh/authorized_keys
 
 # Add Tyler Permission
-RUN groupadd -g 1000 tyler
-RUN useradd -m -d /home/tyler -g 1000 -u 1000 -s /bin/bash tyler
+RUN groupadd -g 1001 tyler
+RUN useradd -m -d /home/tyler -g 1001 -u 1001 -s /bin/bash tyler
 COPY --chown=tyler:tyler config/authorized_keys/tyler /home/tyler/.ssh/authorized_keys
 
