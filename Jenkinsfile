@@ -13,8 +13,7 @@ node('docker') {
     stage('Prepare Container') {
         timestamps {
             dir('config/authorized_keys') {
-                sh 'tar cf - $$(cat ../../users.evergreen) | md5sum | cut -c1-6 > IMAGE_TAG'
-                imageHash = readFile('IMAGE_TAG')
+                configHash = sh(script: 'tar cf - $(cat ../../users.evergreen) | md5sum', returnStdout: true).take(6)
             }
 
             def imageTag = "evergreen-${configHash}"
