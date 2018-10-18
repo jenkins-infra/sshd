@@ -7,10 +7,10 @@ The base image deploys a sshd server and the extended image are designed to conf
 === Evergreen
 This image is used by evergreen contributors to access evergreen network in order to run various operations like accessing the evergreen database.
 
-If you think that you should have access to this, feel free to follow the next steps:
+If you think that you should have access to this, feel free to execute the following steps:
 
 . Open a link:https://issues.jenkins-ci.org/projects/INFRA[Jira ticket] and explain why you should have access to evergreen infrastructure
 . Add your ssh public key to 'config/authorized_keys/<your_username>'
-. Add your user in Dockerfile.evergreen 
-. Run `make build.evergreen` to validate
+. Append your username to users.evergreen
+. Run `make build.evergreen` and validate that you can connect to this docker image
 . Open a PR and ask for two reviewers

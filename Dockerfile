@@ -1,4 +1,4 @@
-FROM debian:stable
+FROM debian:stable AS base
 
 LABEL \
   MAINTAINER="infra@lists.jenkins-ci.org"\
@@ -26,3 +26,26 @@ ENTRYPOINT [\
   "-D", "-e", \
   "-f","/etc/ssh/sshd_config"\
   ]
+
+### Evergreen Builder
+
+FROM base AS evergreen
+LABEL \
+  DESCRIPTION="This image is used as ssh gateway for evergreen contributors"
+
+COPY config/authorized_keys /tmp
+COPY users.evergreen /tmp/users
+RUN \
+  while read user ; do \
+  useradd -m -d /home/$user -s /bin/bash $user ; \
+  mkdir /home/$user/.ssh ; \
+  mv /tmp/$user /home/$user/.ssh/authorized_keys ;\
+  chown $user:$user -R /home/$user ; \
+  done < /tmp/users && \
+  rm /tmp/users
+
+RUN \
+  apt-get update && \
+  apt-get install -y postgresql-client && \
+  apt-get clean && \
+  find /var/lib/apt/lists -type f -delete
