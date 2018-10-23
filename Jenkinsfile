@@ -10,6 +10,7 @@ properties([
 node('docker') {
     def container
     def configHash
+    def imageTag
     stage('Prepare Container') {
         timestamps {
             checkout scm
@@ -17,9 +18,9 @@ node('docker') {
                 configHash = sh(script: 'tar cf - $(cat ../../users.evergreen) | md5sum', returnStdout: true).take(6)
             }
 
-            def imageTag = "evergreen-${configHash}"
+            imageTag = "evergreen-${configHash}"
             echo "Creating the container ${imageName}:${imageTag}"
-            container = docker.build("${imageName}:${imageTag}")
+            sh "docker build -t ${imageName}:${imageTag} -f Dockerfile ."
         }
     }
 
@@ -27,7 +28,9 @@ node('docker') {
     if (!(env.CHANGE_ID || env.BRANCH_NAME)) {
         stage('Publish container') {
             infra.withDockerCredentials {
-                timestamps { container.push() }
+                timestamps {
+                  sh "docker push ${imageName}:${imageTag}"
+                }
             }
         }
     }
