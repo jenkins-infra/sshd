@@ -12,6 +12,7 @@ node('docker') {
     def configHash
     stage('Prepare Container') {
         timestamps {
+            checkout scm
             dir('config/authorized_keys') {
                 configHash = sh(script: 'tar cf - $(cat ../../users.evergreen) | md5sum', returnStdout: true).take(6)
             }
