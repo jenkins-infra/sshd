@@ -15,7 +15,7 @@ node('docker') {
         timestamps {
             checkout scm
             dir('config/authorized_keys') {
-                configHash = sh(script: 'tar cf - $(cat ../../users.evergreen) | md5sum', returnStdout: true).take(6)
+                configHash = sh(script: 'cat $(cat ../../users.evergreen) | md5sum', returnStdout: true).take(6)
             }
 
             imageTag = "evergreen-${configHash}"
