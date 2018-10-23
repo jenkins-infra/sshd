@@ -1,4 +1,4 @@
-IMAGE_NAME="olblak/sshd"
+IMAGE_NAME="jenkinsciinfra/sshd"
 ## Only update tags if configured people or authorized keys changed
 EVERGREEN_IMAGE_TAG="evergreen-$(shell cd config/authorized_keys;\
 		  tar cf - $$(cat ../../users.evergreen) | md5sum | cut -c1-6)"
