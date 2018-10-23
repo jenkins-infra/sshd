@@ -1,7 +1,7 @@
 IMAGE_NAME="jenkinsciinfra/sshd"
 ## Only update tags if configured people or authorized keys changed
 EVERGREEN_IMAGE_TAG="evergreen-$(shell cd config/authorized_keys;\
-		  cat $$(cat ../../users.evergreen) | md5sum | cut -c1-6)"
+		  cat $$(cat ../../users.evergreen) ../sshd_config | md5sum | cut -c1-6)"
 
 build: build.evergreen
 
