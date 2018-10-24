@@ -33,6 +33,12 @@ FROM base AS evergreen
 LABEL \
   DESCRIPTION="This image is used as ssh gateway for evergreen contributors"
 
+RUN \
+  apt-get update && \
+  apt-get install -y postgresql-client && \
+  apt-get clean && \
+  find /var/lib/apt/lists -type f -delete
+
 COPY config/authorized_keys /tmp
 COPY users.evergreen /tmp/users
 RUN \
@@ -44,8 +50,3 @@ RUN \
   done < /tmp/users && \
   rm /tmp/users
 
-RUN \
-  apt-get update && \
-  apt-get install -y postgresql-client && \
-  apt-get clean && \
-  find /var/lib/apt/lists -type f -delete
