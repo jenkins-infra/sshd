@@ -1,5 +1,7 @@
 = SSHD Docker
 
+[Repository Archived] If you want this repository to be updated, please contact us with the instructions at https://www.jenkins.io/chat/#jenkins-infra.
+
 This repository contains everything need to build a sshd docker image.   
 The base image deploys a sshd server and the extended image are designed to configure specific user access depending on the project
 
